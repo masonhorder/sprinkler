@@ -1,0 +1,11 @@
+{
+  "zones":[
+    [1,"Frontyard Right",0], 
+    [2,"Backyard Back Right",0], 
+    [3,"Backyard Left",0], 
+    [4,"Frontyard Right Main",0], 
+    [5,"Backyard Right",0], 
+    [6,"Backyard Main",0], 
+    [7,"Frontyard Left",0]
+  ]
+}

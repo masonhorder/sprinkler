@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../static/style.css">
+  <title>Sprinkler</title>
+</head>
+<body>
+  <div class="header">
+    <div class="headerlist">
+      <h2 id="name"><a id="name-link" href="index.php"><span id="blue">Sprinklers</span></a></h2>
+      <div class="top-head">
+        <ul>
+          <!-- <li><a class ="hvr-underline-from-center" href="">Request Help</a></li> -->
+          <!-- <li><a class ="hvr-underline-from-center" href="schedules.php">Schedules</a></li> -->
+          <!-- <li><a class ="hvr-underline-from-center" href="abou.php">About</a></li> -->
+          <!-- <li><a class ="hvr-underline-from-center" href="settings.php">Setttings</a></li> -->
+  
+          <!-- <li><a class ="hvr-underline-from-center" href="">Set Up</a></li> -->
+          <!-- <li><a href="javascript:void(0);" class="icon" onclick="myFunction()"><i class="fa fa-bars"></i></a></li> -->
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="body">
+    <div class="boxes">
+      <div class="column">
+        <div class="box">
+          <h1>Zone Control</h1>
+          <div class="zoneControl">
+            {% for zone in zones %}
+              {% if zone[2] == 0%}
+                <div class="row"><div class="label">{{zone[1]}}</div><div class="button"><a class="link off" href="/zoneon?zone={{zone[0]}}">Off</a></div></div>
+              {% else %}
+                <div class="row"><div class="label">{{zone[1]}}</div><div class="button"><a class="link on" href="/zoneoff?zone={{zone[0]}}">On</a></div></div>
+              {% endif %}
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+      <div class="column">
+        <div class="box">
+          <h1>Schedules</h1>
+  
+          <div class="schedules">
+            {% for schedule in schedules %}
+          
+              <h2>{{schedule[2]}}</h2>
+              <p>{{schedule[0]}}:{{schedule[1]}}</p>
+            
+              {% for programmedZone in schedule[3] %}
+                {{programmedZone[0]}}: {{programmedZone[1]}} seconds
+                <br>
+              {% endfor %}
+          
+            
+
+              {% for zone in zones %}
+                <form method="GET" action="/assignZone">
+                  {{zone[1]}} 
+                  <input type="text" placeholder="Run Duration(seconds)" name="runDuration">
+                  <input type="button" value="set" onclick="this.form.submit()" name="add">
+                  <input type="hidden" name="zone" value="{{zone[0]}} ">
+                  <input type="hidden" name="schedule" value="{{schedules.index(schedule)+1}} ">
+                </form>
+              {% endfor %}
+
+              <br>
+            {% endfor %}
+          </div>
+
+          <br>
+
+          <h2>Add Schedule</h2>
+          <form method="GET" action="/newSchedule">
+            <input type="text" placeholder="name" name="name">
+            <input type="text" placeholder="hour" name="hour">
+            <input type="text" placeholder="minute" name="minute">
+            <input type="radio" id="am" name="ampm" value="am">
+            <label for="huey">AM</label>
+
+            <input type="radio" id="pm" name="ampm" value="pm">
+            <label for="dewey">PM</label>
+            <input type="button" onclick="this.form.submit()" value="Add">
+
+            
+            
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <br>
+  <br>
+  <br>
+
+
+  <h1>Schedules</h1>
+  
+  <div class="schedules">
+    {% for schedule in schedules %}
+  
+      <h2>{{schedule[2]}}</h2>
+      <p>{{schedule[0]}}:{{schedule[1]}}</p>
+    
+      {% for programmedZone in schedule[3] %}
+        {{programmedZone[0]}}: {{programmedZone[1]}} seconds
+        <br>
+      {% endfor %}
+  
+    
+
+      {% for zone in zones %}
+        <form method="GET" action="/assignZone">
+          {{zone[1]}} 
+          <input type="text" placeholder="Run Duration(seconds)" name="runDuration">
+          <input type="button" value="set" onclick="this.form.submit()" name="add">
+          <input type="hidden" name="zone" value="{{zone[0]}} ">
+          <input type="hidden" name="schedule" value="{{schedules.index(schedule)+1}} ">
+        </form>
+      {% endfor %}
+
+      <br>
+    {% endfor %}
+  </div>
+
+  <br>
+
+  <h2>Add Schedule</h2>
+  <form method="GET" action="/newSchedule">
+    <input type="text" placeholder="name" name="name">
+    <input type="text" placeholder="hour" name="hour">
+    <input type="text" placeholder="minute" name="minute">
+    <input type="radio" id="am" name="ampm" value="am">
+    <label for="huey">AM</label>
+
+    <input type="radio" id="pm" name="ampm" value="pm">
+    <label for="dewey">PM</label>
+    <input type="button" onclick="this.form.submit()" value="Add">
+
+    
+    
+  </form>
+
+</body>
+</html>
